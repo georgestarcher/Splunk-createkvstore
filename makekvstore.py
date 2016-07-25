@@ -65,7 +65,7 @@ if __name__ == "__main__":
             app = args[0]
             collection = args[1]
         else:
-            print 'test.py <app> <collection>'
+            print 'makekvstore.py <app> <collection>'
             sys.exit(2)
     except getopt.GetoptError as err:
         print 'test.py <app> <collection>'
