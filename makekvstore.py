@@ -68,7 +68,7 @@ if __name__ == "__main__":
             print 'makekvstore.py <app> <collection>'
             sys.exit(2)
     except getopt.GetoptError as err:
-        print 'test.py <app> <collection>'
+        print 'makekvstore.py <app> <collection>'
         sys.exit(2)
     
     try:
