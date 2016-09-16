@@ -36,16 +36,29 @@ def loadCSV(filename):
 def createKVStore(app,data):
 
     print json.dumps(data)
-    splunk_url = ''.join(['https://',splunk_server,':',splunk_server_port,'/servicesNS/nobody/',app,'/storage/collections/config'])
-    headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-    r = requests.post(splunk_url,auth=(splunk_user,splunk_password),verify=splunk_server_verify,headers=headers,data=data)
-    print r.text
+    try:
+        splunk_url = ''.join(['https://',splunk_server,':',splunk_server_port,'/servicesNS/nobody/',app,'/storage/collections/config'])
+        headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+        r = requests.post(splunk_url,auth=(splunk_user,splunk_password),verify=splunk_server_verify,headers=headers,data=data)
+        print r.text
+        r.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        print( "%s" % str(e))
+        sys.exit(1)
+
 
 def configureKVStore(app,collection,data):
-    splunk_url = ''.join(['https://',splunk_server,':',splunk_server_port,'/servicesNS/nobody/',app,'/storage/collections/config/',collection])
-    headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-    r = requests.post(splunk_url,auth=(splunk_user,splunk_password),verify=splunk_server_verify,headers=headers,data=data)
-    print r.text
+
+    try:
+        splunk_url = ''.join(['https://',splunk_server,':',splunk_server_port,'/servicesNS/nobody/',app,'/storage/collections/config/',collection])
+        headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+        r = requests.post(splunk_url,auth=(splunk_user,splunk_password),verify=splunk_server_verify,headers=headers,data=data)
+        print r.text
+        r.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        print( "%s" % str(e))
+        sys.exit(1)
+
 
 
 if __name__ == "__main__":
